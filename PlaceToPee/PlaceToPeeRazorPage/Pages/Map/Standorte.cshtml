@@ -1,0 +1,26 @@
+﻿@page
+@model PlaceToPeeRazorPage.Pages.Map.StandorteModel
+@{
+    ViewData["Title"] = "Standorte";
+}
+
+<h1>Standorte</h1>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Latitude</th>
+            <th>Longitude</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var standorts in Model.Standorte)
+        {
+            <tr>
+                <td>@standorts.Latitude</td>
+                <td>@standorts.Longitude</td>
+            </tr>
+        }
+    </tbody>
+</table>
