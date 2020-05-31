@@ -5,7 +5,7 @@
 }
 
 <h1>Standorte</h1>
-
+<div id="myMap"></div>
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>
@@ -24,3 +24,48 @@
         }
     </tbody>
 </table>
+@{
+    List<double> latitudeList = new List<double>();
+    @foreach (var standorte in Model.Standorte)
+    {
+        double latitude = Convert.ToDouble(standorte.Latitude);
+        latitudeList.Add(latitude);
+    }
+}
+
+<link rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+      integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+      crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+        integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+        crossorigin=""></script>
+<style>
+    #myMap {
+        height: 360px;
+    }
+</style>
+<script type="text/javascript">
+   
+    // init the map
+    const mymap = L.map('myMap').setView([52.55596141, 13.3843708], 12);
+    const attribution =
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+    const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    const tiles = L.tileLayer(tileUrl, { attribution });
+    tiles.addTo(mymap);
+    
+    // init toillet locations
+    var arr = @latitudeList;
+    var marker = L.marker([52.55596141, 13.3843708]).addTo(mymap);
+    var nextToilett = L.marker([52.55596141, 13.35159522]).addTo(mymap);
+    marker.bindPopup("dirty toilett");
+    nextToilett.bindPopup("next place to pee").openPopup();
+
+
+    const api_url = 'https://api.wheretheiss.at/v1/satellites/25544';
+
+    let firstTime = true;
+
+</script>
