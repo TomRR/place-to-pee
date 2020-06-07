@@ -17,6 +17,8 @@
     <tbody>
         @foreach (var standorts in Model.Standorte)
         {
+
+            <div type="hidden"></div>
             <tr>
                 <td>@standorts.Latitude</td>
                 <td>@standorts.Longitude</td>
@@ -24,6 +26,7 @@
         }
     </tbody>
 </table>
+<input type="hidden" id="long" value="2" />
 @{
     List<double> latitudeList = new List<double>();
     @foreach (var standorte in Model.Standorte)
@@ -31,7 +34,11 @@
         double latitude = Convert.ToDouble(standorte.Latitude);
         latitudeList.Add(latitude);
     }
+    int x = 10;
 }
+
+
+
 
 <link rel="stylesheet"
       href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
@@ -46,26 +53,36 @@
     }
 </style>
 <script type="text/javascript">
-   
+
+
     // init the map
-    const mymap = L.map('myMap').setView([52.55596141, 13.3843708], 12);
-    const attribution =
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+    function initMap() {
+        const mymap = L.map('myMap').setView([52.55596141, 13.3843708], 12);
+        const attribution =
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-    const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    const tiles = L.tileLayer(tileUrl, { attribution });
-    tiles.addTo(mymap);
-    
+        const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        const tiles = L.tileLayer(tileUrl, { attribution });
+        tiles.addTo(mymap);
+    }
+
+    initMap();
     // init toillet locations
-    var arr = @latitudeList;
-    var marker = L.marker([52.55596141, 13.3843708]).addTo(mymap);
-    var nextToilett = L.marker([52.55596141, 13.35159522]).addTo(mymap);
-    marker.bindPopup("dirty toilett");
-    nextToilett.bindPopup("next place to pee").openPopup();
+    //function addMarker(latitude, longitude) {
+    //    var marker = L.marker([latitude, longitude]).addTo(mymap);
+    //    marker.bindPopup("dirty toilett")
+    //}
+    //var marker = L.marker([52.55596141, 13.3843708]).addTo(mymap);
+    //var nextToilett = L.marker([52.55596141, 13.35159522]).addTo(mymap);
+    //marker.bindPopup("dirty toilett");
+    //nextToilett.bindPopup("next place to pee").openPopup();
 
 
-    const api_url = 'https://api.wheretheiss.at/v1/satellites/25544';
 
-    let firstTime = true;
+    @*let firstTime = true;
+    @foreach(var item in Model.Standorte)
+    {
+        @:addMarker(@item.Latitude, @item.Longitude)
+    }*@
 
 </script>
