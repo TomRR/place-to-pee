@@ -29,12 +29,15 @@
 <input type="hidden" id="long" value="2" />
 @{
     List<double> latitudeList = new List<double>();
+    List<double> longititudeList = new List<double>();
     @foreach (var standorte in Model.Standorte)
     {
         double latitude = Convert.ToDouble(standorte.Latitude);
+        double longitude = Convert.ToDouble(standorte.Longitude);
         latitudeList.Add(latitude);
+        longititudeList.Add(longitude);
     }
-    int x = 10;
+    
 }
 
 
@@ -68,10 +71,10 @@
 
     initMap();
     // init toillet locations
-    //function addMarker(latitude, longitude) {
-    //    var marker = L.marker([latitude, longitude]).addTo(mymap);
-    //    marker.bindPopup("dirty toilett")
-    //}
+    function addMarker(latitude, longitude) {
+        var marker = L.marker([latitude, longitude]).addTo(mymap);
+        marker.bindPopup("dirty toilett")
+    }
     //var marker = L.marker([52.55596141, 13.3843708]).addTo(mymap);
     //var nextToilett = L.marker([52.55596141, 13.35159522]).addTo(mymap);
     //marker.bindPopup("dirty toilett");
@@ -79,10 +82,14 @@
 
 
 
-    @*let firstTime = true;
-    @foreach(var item in Model.Standorte)
+    let firstTime = true;
+    @foreach(var item in latitudeList)
     {
-        @:addMarker(@item.Latitude, @item.Longitude)
-    }*@
+        @foreach(var longi in longititudeList)
+        {
+            @:addMarker(@item, @longi)
+        }
+
+    }
 
 </script>

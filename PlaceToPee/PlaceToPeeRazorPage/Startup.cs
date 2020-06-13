@@ -33,6 +33,7 @@ namespace PlaceToPeeRazorPage
 
             services.AddTransient<IDataAccess, SqlDb>();
             services.AddTransient<IStandorteData, StandorteData>();
+            services.AddTransient<IToiletsBerlinData, ToiletsBerlinData>();
 
         }
 
