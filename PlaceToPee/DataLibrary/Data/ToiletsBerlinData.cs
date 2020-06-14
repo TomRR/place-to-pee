@@ -1,4 +1,5 @@
 ﻿using DataLibrary.Db;
+using DataLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,9 +18,9 @@ namespace DataLibrary.Data
             _connectionString = connectionString;
         }
 
-        public Task<List<ToiletsBerlinData>> GetAllToiletsBerlin()
+        public Task<List<ToiletsBerlinModel>> GetAllToiletsBerlin()
         {
-            return _dataAccess.LoadData<ToiletsBerlinData, dynamic>("dbo.spToiletsBerlin_GetAll",
+            return _dataAccess.LoadData<ToiletsBerlinModel, dynamic>("dbo.spBerlinToiletLocation_getAll",
                                                             new { },
                                                             _connectionString.SqlConnectionName);
         }

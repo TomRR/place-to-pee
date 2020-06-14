@@ -12,8 +12,8 @@ namespace DataLibrary.Models
         public string Street { get; set; }
         public int PostalCode { get; set; }
         public string Country { get; set; }
-        public decimal Longitude { get; set; }
-        public decimal Latitude { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
         public string ISOwnedByWall { get; set; }
         public string IsHandycappedAccessible { get; set; }
         public string Price { get; set; }

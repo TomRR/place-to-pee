@@ -20,7 +20,7 @@ namespace PlaceToPeeRazorPage.Pages.Map
         }
         public async Task OnGet()
         {
-            //LocationsBerlin = await _locationData.GetAllToiletsBerlin();
+            LocationsBerlin = await _locationData.GetAllToiletsBerlin();
         }
     }
 }

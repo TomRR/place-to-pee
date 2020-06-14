@@ -5,4 +5,181 @@
 }
 
 <h1>Berlin</h1>
+<div id="myMap"></div>
+<table id="table" class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Street</th>
+            <th>Postalcode</th>
+            <th>Price</th>
+            <th>description</th>
 
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var standorte in Model.LocationsBerlin)
+        {
+
+            <tr>
+                <td class="data-latitude">@standorte.Latitude</td>
+                <td class="data-longitude">@standorte.Longitude</td>
+                <td class="data-street">@standorte.Street</td>
+                <td class="data-postalCode">@standorte.PostalCode</td>
+                <td class="data-price">@standorte.Price</td>
+                <td class="data-label">@standorte.LabelId</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@*@{
+    List<decimal> latitudeList = new List<decimal>();
+    List<decimal> longititudeList = new List<decimal>();
+    @foreach (var standorte in Model.LocationsBerlin)
+    {
+        latitudeList.Add(standorte.Latitude);
+        longititudeList.Add(standorte.Longitude);
+    }
+}*@
+
+
+<link rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+      integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+      crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+        integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+        crossorigin=""></script>
+<style>
+    #myMap {
+        height: 360px;
+    }
+/*    #table {
+        visibility: hidden
+    }*/
+</style>
+<script type="text/javascript">
+
+ 
+    const latitudeArray = [];
+    const longitudeArray = [];
+    const streetArray = [];
+    const postalCodeArray = [];
+    const priceArray = [];
+    const labelArray = [];
+
+    function getInfo(domElement, array) {
+        for (let i = 0; i < 199; i++) {
+            let info = document.getElementsByClassName(domElement).item(i);
+            array.push(info.innerHTML)
+        }
+    }
+    getInfo("data-street", streetArray)
+    getInfo("data-postalCode", postalCodeArray)
+    getInfo("data-price", priceArray)
+    getInfo("data-label", labelArray)
+
+
+    for (let i = 0; i < 199; i++) {
+        let latitudes = document.getElementsByClassName("data-latitude").item(i);
+        let fixlatitude = parseFloat(latitudes.innerHTML)
+        latitudeArray.push(fixlatitude)
+    }
+    for (let i = 0; i < 199; i++) {
+        let longitude = document.getElementsByClassName("data-longitude").item(i);
+        let fixlongitude = parseFloat(longitude.innerHTML)
+        longitudeArray.push(fixlongitude)
+    }
+
+
+
+    if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(position => {
+            const usersLatitude = position.coords.latitude;
+            const usersLongitude = position.coords.longitude;
+            const mymap = L.map('myMap').setView([usersLatitude, usersLongitude], 12);
+            const attribution =
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+            const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+            const tiles = L.tileLayer(tileUrl, { attribution });
+            tiles.addTo(mymap);
+
+            var circle = L.circle([usersLatitude, usersLongitude], {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0,
+                radius: 10
+            }).addTo(mymap);
+            circle.bindPopup("You are here");
+            circle.openPopup()
+        });
+
+    } else {
+        alert("Your geolocation are not available")
+        const mymap = L.map('myMap').setView([52.55596141, 13.3843708], 12);
+        const attribution =
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+        const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        const tiles = L.tileLayer(tileUrl, { attribution });
+        tiles.addTo(mymap);
+    }
+
+    // init the map
+    //function initMap() {
+        //const mymap = L.map('myMap').setView([52.55596141, 13.3843708], 12);
+        //const attribution =
+        //    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+        //const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        //const tiles = L.tileLayer(tileUrl, { attribution });
+        //tiles.addTo(mymap);
+    //}
+
+    //initMap();
+
+
+    function addMarker(latitudes, longitudes, street, postalcode, price, label) {
+        for (let i = 0; i < 199; i++) {
+            let marker = L.marker([latitudes[i], longitudes[i]]).addTo(mymap);
+            const description = `
+                                <div class="info-popup">
+                                    <p class="street">${street[i]}</p>
+                                    <p class="postalcode">${postalcode[i]}</p>
+                                    <p class="label">${label[i]}</p>
+                                    <p>Price: ${price[i]}</p>
+                                </div>
+                                `;
+            marker.bindPopup(description);
+        }
+    }
+    addMarker(latitudeArray, longitudeArray, streetArray, postalCodeArray, priceArray, labelArray);
+
+
+    
+    //let firstTime = true;
+    //@*@foreach(var item in latitudeList)
+    {
+        @foreach(var longi in longititudeList)
+        {
+            @:addMarker(@item, @longi)
+        }
+
+    }*@
+    //var x = "";
+    //var tds = document.querySelectorAll('#table td'), i;
+    //for (i = 0; i < tds.length; ++i) {
+    //    x = x + tds[i].innerHTML;
+    //}
+    //console.log(x)
+
+
+    @*var json = @Html.Raw(Json.Serialize(@Model.LocationsBerlin));
+    json.map((obj) => {
+        console.log(obj.values())
+    })
+    alert(json)
+    alert(json.values()) *@
+</script>

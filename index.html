@@ -51,25 +51,26 @@
       nextToilett.bindPopup("next place to pee").openPopup();
 
 
-      const api_url = 'https://api.wheretheiss.at/v1/satellites/25544';
+      const api_url = 'https://www.berlin.de/sen/web/service/liefer-und-abholdienste/index.php/index/all.json?q=';
 
       let firstTime = true;
 
-    //   async function getISS() {
-    //     const response = await fetch(api_url);
-    //     const data = await response.json();
-    //     const { latitude, longitude } = data;
+      async function getISS() {
+        const response = await fetch(api_url);
+        console.log(response);
+        const data = await response.json();
+        const { latitude, longitude } = data;
+        console.log(latitude);
+        // Always set the view to current lat lon and zoom!
+        // mymap.setView([latitude, longitude], mymap.getZoom());
+        // marker.setLatLng([latitude, longitude]);
 
-    //     // Always set the view to current lat lon and zoom!
-    //     mymap.setView([latitude, longitude], mymap.getZoom());
-    //     marker.setLatLng([latitude, longitude]);
+        // document.getElementById('lat').textContent = latitude.toFixed(2);
+        // document.getElementById('lon').textContent = longitude.toFixed(2);
+      }
 
-    //     document.getElementById('lat').textContent = latitude.toFixed(2);
-    //     document.getElementById('lon').textContent = longitude.toFixed(2);
-    //   }
-
-    //   getISS();
-      setInterval(getISS, 1000);
+      getISS();
+      // setInterval(getISS);
     </script>
   </body>
 </html>
