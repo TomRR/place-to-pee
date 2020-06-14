@@ -7,7 +7,8 @@
 <h1>Berlin</h1>
 <div id="myMap"></div>
 <input type="button" value="Refresh Page" onClick="refresh()">
-<a href="javascript:location.reload(true)">Refresh this page</a>
+<input type="button" value="freetoilets" onClick="getFreeToilets()">
+
 <table id="table" class="table table-striped">
     <thead class="thead-dark">
         <tr>
@@ -31,6 +32,7 @@
                 <td class="data-postalCode">@standorte.PostalCode</td>
                 <td class="data-price">@standorte.Price</td>
                 <td class="data-label">@standorte.LabelId</td>
+                <td class="data-handycappedAccessible">@standorte.IsHandycappedAccessible</td>
             </tr>
         }
     </tbody>

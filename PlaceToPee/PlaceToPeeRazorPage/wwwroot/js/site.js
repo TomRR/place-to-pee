@@ -5,6 +5,7 @@ const streetArray = [];
 const postalCodeArray = [];
 const priceArray = [];
 const labelArray = [];
+const handycappedAccessibleArray = [];
 
 function getInfo(domElement, array) {
     for (let i = 0; i < 259; i++) {
@@ -16,7 +17,12 @@ getInfo("data-street", streetArray)
 getInfo("data-postalCode", postalCodeArray)
 getInfo("data-price", priceArray)
 getInfo("data-label", labelArray)
+getInfo("data-handycappedAccessible", handycappedAccessibleArray)
 
+const freeToiletsArray = priceArray.map(item => {
+    return item === "Kostenlos";
+});
+console.log(freeToiletsArray)
 
 for (let i = 0; i < 259; i++) {
     let latitudes = document.getElementsByClassName("data-latitude").item(i);
@@ -67,25 +73,48 @@ if ('geolocation' in navigator) {
 
 
 
-function addMarker(latitudes, longitudes, street, postalcode, price, label) {
+function addMarker(latitudes, longitudes, street, postalcode, price, label, handycappedAccessible) {
     for (let i = 0; i < 259; i++) {
         let marker = L.marker([latitudes[i], longitudes[i]]).addTo(mymap);
+        if (handycappedAccessible[i] === "1") {
+            var hasHandycappedAccessible = "street-view-solid.PNG"
+        };
         const description = `
                                 <div class="info-popup">
                                     <p class="street">${street[i]}</p>
                                     <p class="postalcode">${postalcode[i]}</p>
                                     <p class="label">${label[i]}</p>
                                     <p>Price: ${price[i]}</p>
+                                    <img src=${hasHandycappedAccessible} alt='maptime logo gif' width='350px' />
                                 </div>
                                 `;
         marker.bindPopup(description);
     }
 }
-addMarker(latitudeArray, longitudeArray, streetArray, postalCodeArray, priceArray, labelArray);
+addMarker(latitudeArray, longitudeArray, streetArray, postalCodeArray, priceArray, labelArray, handycappedAccessibleArray);
 
 function refresh() {
     location.reload()
 }
+
+//function addFreeToilets(latitudes, longitudes, street, postalcode, price, label, freeToilets) {
+//    //refresh()
+//    for (let i = 0; i < 259; i++) {
+//        if (freeToilets[i] === true) {
+//            let marker = L.marker([latitudes[i], longitudes[i]]).addTo(mymap);
+//            const description = `
+//                                <div class="info-popup">
+//                                    <p class="street">${street[i]}</p>
+//                                    <p class="postalcode">${postalcode[i]}</p>
+//                                    <p class="label">${label[i]}</p>
+//                                    <p>Price: ${price[i]}</p>
+//                                </div>
+//                                `;
+//            marker.bindPopup(description);
+//        }
+//    }
+//}
+//function getFreeT
 
 ////let firstTime = true;
 ////@*@foreach(var item in latitudeList)
