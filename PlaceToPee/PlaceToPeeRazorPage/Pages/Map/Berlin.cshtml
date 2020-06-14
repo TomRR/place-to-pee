@@ -6,6 +6,8 @@
 
 <h1>Berlin</h1>
 <div id="myMap"></div>
+<input type="button" value="Refresh Page" onClick="refresh()">
+<a href="javascript:location.reload(true)">Refresh this page</a>
 <table id="table" class="table table-striped">
     <thead class="thead-dark">
         <tr>
@@ -52,134 +54,10 @@
         integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
         crossorigin=""></script>
 <style>
-    #myMap {
-        height: 360px;
-    }
-/*    #table {
-        visibility: hidden
-    }*/
+
 </style>
 <script type="text/javascript">
 
  
-    const latitudeArray = [];
-    const longitudeArray = [];
-    const streetArray = [];
-    const postalCodeArray = [];
-    const priceArray = [];
-    const labelArray = [];
-
-    function getInfo(domElement, array) {
-        for (let i = 0; i < 199; i++) {
-            let info = document.getElementsByClassName(domElement).item(i);
-            array.push(info.innerHTML)
-        }
-    }
-    getInfo("data-street", streetArray)
-    getInfo("data-postalCode", postalCodeArray)
-    getInfo("data-price", priceArray)
-    getInfo("data-label", labelArray)
-
-
-    for (let i = 0; i < 199; i++) {
-        let latitudes = document.getElementsByClassName("data-latitude").item(i);
-        let fixlatitude = parseFloat(latitudes.innerHTML)
-        latitudeArray.push(fixlatitude)
-    }
-    for (let i = 0; i < 199; i++) {
-        let longitude = document.getElementsByClassName("data-longitude").item(i);
-        let fixlongitude = parseFloat(longitude.innerHTML)
-        longitudeArray.push(fixlongitude)
-    }
-
-
-
-    if ('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition(position => {
-            const usersLatitude = position.coords.latitude;
-            const usersLongitude = position.coords.longitude;
-            const mymap = L.map('myMap').setView([usersLatitude, usersLongitude], 12);
-            const attribution =
-                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-
-            const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-            const tiles = L.tileLayer(tileUrl, { attribution });
-            tiles.addTo(mymap);
-
-            var circle = L.circle([usersLatitude, usersLongitude], {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0,
-                radius: 10
-            }).addTo(mymap);
-            circle.bindPopup("You are here");
-            circle.openPopup()
-        });
-
-    } else {
-        alert("Your geolocation are not available")
-        const mymap = L.map('myMap').setView([52.55596141, 13.3843708], 12);
-        const attribution =
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-
-        const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-        const tiles = L.tileLayer(tileUrl, { attribution });
-        tiles.addTo(mymap);
-    }
-
-    // init the map
-    //function initMap() {
-        //const mymap = L.map('myMap').setView([52.55596141, 13.3843708], 12);
-        //const attribution =
-        //    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-
-        //const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-        //const tiles = L.tileLayer(tileUrl, { attribution });
-        //tiles.addTo(mymap);
-    //}
-
-    //initMap();
-
-
-    function addMarker(latitudes, longitudes, street, postalcode, price, label) {
-        for (let i = 0; i < 199; i++) {
-            let marker = L.marker([latitudes[i], longitudes[i]]).addTo(mymap);
-            const description = `
-                                <div class="info-popup">
-                                    <p class="street">${street[i]}</p>
-                                    <p class="postalcode">${postalcode[i]}</p>
-                                    <p class="label">${label[i]}</p>
-                                    <p>Price: ${price[i]}</p>
-                                </div>
-                                `;
-            marker.bindPopup(description);
-        }
-    }
-    addMarker(latitudeArray, longitudeArray, streetArray, postalCodeArray, priceArray, labelArray);
-
-
     
-    //let firstTime = true;
-    //@*@foreach(var item in latitudeList)
-    {
-        @foreach(var longi in longititudeList)
-        {
-            @:addMarker(@item, @longi)
-        }
-
-    }*@
-    //var x = "";
-    //var tds = document.querySelectorAll('#table td'), i;
-    //for (i = 0; i < tds.length; ++i) {
-    //    x = x + tds[i].innerHTML;
-    //}
-    //console.log(x)
-
-
-    @*var json = @Html.Raw(Json.Serialize(@Model.LocationsBerlin));
-    json.map((obj) => {
-        console.log(obj.values())
-    })
-    alert(json)
-    alert(json.values()) *@
 </script>
