@@ -1,0 +1,63 @@
+﻿@page
+@model PlaceToPeeRazorPage.Pages.Info.DetailsByIdModel
+@{
+    ViewData["Title"] = "DetailsById";
+}
+
+<h1>Toilet</h1>
+
+@if (Model.ToiletsModel is null)
+{
+    <h2>The requested record was not found.</h2>
+}
+else
+{
+    <table class="table">
+        <tbody>
+            <tr>
+                <td class="font-weight-bold">Street</td>
+                <td>@Model.ToiletsModel.Street</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">PostalCode</td>
+                <td>@Model.ToiletsModel.PostalCode</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Price</td>
+                <td>@Model.ToiletsModel.Price</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">HasChangingTable</td>
+                <td>@Model.ToiletsModel.HasChangingTable</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">CanBePayedWithCoins</td>
+                <td>@Model.ToiletsModel.CanBePayedWithCoins</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">CanBePayedWthApp</td>
+                <td>@Model.ToiletsModel.CanBePayedWthApp</td>
+            </tr>            
+            <tr>
+                <td class="font-weight-bold">CanBePayedWithNFC</td>
+                <td>@Model.ToiletsModel.CanBePayedWithNFC</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">LeaderSince</td>
+                <td>@Model.ToiletsModel.Longitude</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Tribe</td>
+                <td>@Model.ToiletsModel.Latitude</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <a asp-page="./Delete" asp-route-id="@Model.ToiletsModel.Id" class="btn btn-danger">Delete Citizen</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+}

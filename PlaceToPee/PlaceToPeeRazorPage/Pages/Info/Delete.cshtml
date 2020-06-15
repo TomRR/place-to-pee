@@ -1,0 +1,25 @@
+﻿@page
+@model PlaceToPeeRazorPage.Pages.Info.DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+
+@if (Model.Toilet is null)
+{
+    <h2>The requested record was not found</h2>
+}
+else
+{
+    <div class="h4">
+        Are you sure you want to delete the toilet at @Model.Toilet.Street?
+    </div>
+    <form method="post">
+        <input asp-for="Id" value="@Model.Id" type="hidden" />
+        <div class="form-group">
+            <input type="submit" value="Delete Toilet" class="btn btn-danger" />
+        </div>
+    </form>
+}
