@@ -89,6 +89,10 @@ function addMarker(latitudes, longitudes, street, postalcode, price, label) {
 }
 addMarker(latitudeArray, longitudeArray, streetArray, postalCodeArray, priceArray, labelArray);
 
+const hyperlinkButton = document.querySelectorAll(".btn-lg");
+if (hyperlinkButton.classList.contains("active")) {
+    hyperlinkButton.Enabled = false;
+}
 
 //function addFreeToilets(latitudes, longitudes, street, postalcode, price, label, freeToilets) {
 //    //refresh()
