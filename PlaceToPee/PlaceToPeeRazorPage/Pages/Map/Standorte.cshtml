@@ -1,0 +1,110 @@
+﻿@page
+@model PlaceToPeeRazorPage.Pages.Map.StandorteModel
+@{
+    ViewData["Title"] = "Standorte";
+}
+
+<h1>Standorte</h1>
+<div id="myMap"></div>
+<table id="table" type="hidden" class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Latitude</th>
+            <th>Longitude</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var standorte in Model.Standorte)
+        {
+
+            <tr>
+                <td class="data-latitude">@standorte.Latitude</td>
+                <td class="data-longitude">@standorte.Longitude</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@{
+    List<double> latitudeList = new List<double>();
+    List<double> longititudeList = new List<double>();
+    @foreach (var standorte in Model.Standorte)
+    {
+        double latitude = Convert.ToDouble(standorte.Latitude);
+        double longitude = Convert.ToDouble(standorte.Longitude);
+        latitudeList.Add(latitude);
+        longititudeList.Add(longitude);
+    }
+    
+}
+
+
+
+
+<link rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+      integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+      crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+        integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+        crossorigin=""></script>
+<style>
+    #myMap {
+        height: 360px;
+    }
+</style>
+<script type="text/javascript">
+    var latitudeArray = [];
+
+
+    //for (let i = 0; i < 199; i++) {
+    //    let latitude = document.getElementsByClassName("data-latitude").item(i);
+    //    console.log(latitude)
+    //    let lat = parseInt(latitude.innerHTML)
+    //    latitudeArray.push(lat)
+    //}
+    //console.log(latitudeArray[1])
+    let latitudes = document.getElementsByClassName("data-latitude").item(0);
+    const latitu = latitudes.innerHTML;
+    console.log(latitu)
+    const intus = latitu.replace(",", ".")
+    const tus = parseFloat(intus)
+    console.log(tus)
+
+    
+    console.log(latitu)
+    // init the map
+    //function initMap() {
+        const mymap = L.map('myMap').setView([52.55596141, 13.3843708], 12);
+        const attribution =
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+        const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        const tiles = L.tileLayer(tileUrl, { attribution });
+        tiles.addTo(mymap);
+    //}
+
+    //initMap();
+    // init toillet locations
+    //function addMarker(latitude, longitude) {
+    //    var marker = L.marker([latitude, longitude]).addTo(mymap);
+    //    marker.bindPopup("dirty toilett")
+    //}
+    var marker = L.marker([latitude, 13.3843708]).addTo(mymap);
+    //var nextToilett = L.marker([52.55596141, 13.35159522]).addTo(mymap);
+    //marker.bindPopup("dirty toilett");
+    //nextToilett.bindPopup("next place to pee").openPopup();
+
+
+
+    let firstTime = true;
+    @foreach(var item in latitudeList)
+    {
+        @foreach(var longi in longititudeList)
+        {
+            @:addMarker(@item, @longi)
+        }
+
+    }
+
+</script>
