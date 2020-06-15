@@ -5,34 +5,38 @@
 }
 
 <h1>Data Table</h1>
+<div class="button-container">
+    <a asp-page="./Create" class="btn-lg btn-info">Add new Toilet</a>
+    </div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Street</th>
+                <th>Postalcode</th>
+                <th>Price</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var standorte in Model.LocationsBerlin)
+            {
 
-<table class="table table-striped">
-    <thead class="thead-dark">
-        <tr>
-            <th>Street</th>
-            <th>Postalcode</th>
-            <th>Label</th>
-            <th>Price</th>
-            <th>Handicapped Accessible</th>
-            <th>has changing Table</th>
-            <th>Latitude</th>
-            <th>Longitude</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var standorte in Model.LocationsBerlin)
-        {
-
-        <tr>
-            <td>@standorte.Street</td>
-            <td>@standorte.PostalCode</td>
-            <td>@standorte.LabelId</td>
-            <td>@standorte.Price</td>
-            <td>@standorte.IsHandycappedAccessible</td>
-            <td>@standorte.HasChangingTable</td>
-            <td>@standorte.Latitude</td>
-            <td>@standorte.Longitude</td>
-        </tr>
-        }
-    </tbody>
-</table>
+                <tr>
+                    <td>@standorte.Street</td>
+                    <td>@standorte.PostalCode</td>
+                    <td>@standorte.Price</td>
+                    <td>@standorte.Latitude</td>
+                    <td>@standorte.Longitude</td>
+                    <td>
+                        <a asp-page="./DetailsById" asp-route-id="@standorte.Id" class="btn btn-dark">Update</a>
+                    </td>
+                    <td>
+                        <a asp-page="./Delete" asp-route-id="@standorte.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
