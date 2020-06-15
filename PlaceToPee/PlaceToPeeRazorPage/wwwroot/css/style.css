@@ -1,7 +1,13 @@
 ﻿body {
 }
 #myMap {
-    height: 500px;
+    height: 600px;
+    width: 100%;
+}
+
+.button-container {
+    margin: 20px;
+    padding: 20px;
 }
 
 #table {

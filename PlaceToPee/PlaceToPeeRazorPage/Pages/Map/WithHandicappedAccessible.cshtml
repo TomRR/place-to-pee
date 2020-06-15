@@ -1,22 +1,21 @@
 ﻿@page
-@model PlaceToPeeRazorPage.Pages.Map.BerlinModel
+@model PlaceToPeeRazorPage.Pages.Map.WithHandicappedAccessibleModel
 @{
-    ViewData["Title"] = "Berlin";
+    ViewData["Title"] = "WithHandicappedAccessible";
 }
 
 <h1>Berlin</h1>
 
 
 <div class="button-container">
-    <a asp-page="" class="btn-lg btn-dark active">All</a>
+    <a asp-page="./Berlin" class="btn-lg btn-dark">All</a>
     <a asp-page="./FreeToilets" class="btn-lg btn-dark">costless Toilets</a>
     <a asp-page="./WithChangingTable" class="btn-lg btn-dark">Toilets with Changing Table</a>
-    <a asp-page="./WithHandicappedAccessible" class="btn-lg btn-dark">Toilets with Handicapped Access</a>
+    <a asp-page="" class="btn-lg btn-dark active">Toilets with Handicapped Access</a>
 </div>
 
 <div id="myMap"></div>
 <table id="table" class="table table-striped">
-
     <tbody>
         @foreach (var standorte in Model.LocationsBerlin)
         {

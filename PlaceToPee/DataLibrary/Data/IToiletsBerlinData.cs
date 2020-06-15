@@ -10,5 +10,7 @@ namespace DataLibrary.Data
 
         Task<List<ToiletsBerlinModel>> GetFreeToilets();
         Task<int> DeleteToilet(int toiletId);
+        Task<List<ToiletsBerlinModel>> GetToiletsWithChangingTable();
+        Task<List<ToiletsBerlinModel>> GetToiletsHandicappedAccessible();
     }
 }

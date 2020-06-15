@@ -4,24 +4,18 @@
     ViewData["Title"] = "FreeToilets";
 }
 
-<h1>FreeToilets</h1>
+<h1>Berlin</h1>
+
+<div class="button-container">
+    <a asp-page="./Berlin" class="btn-lg btn-dark">All</a>
+    <a asp-page="" class="btn-lg btn-dark active">costless Toilets</a>
+    <a asp-page="./WithChangingTable" class="btn-lg btn-dark">Toilets with Changing Table</a>
+    <a asp-page="./WithHandicappedAccessible" class="btn-lg btn-dark">Toilets with Handicapped Access</a>
+</div>
 
 <div id="myMap"></div>
-<input type="button" value="Refresh Page" onClick="refresh()">
-<input type="button" value="freetoilets" onClick="getFreeToilets()">
 
 <table id="table" class="table table-striped">
-    <thead class="thead-dark">
-        <tr>
-            <th>Latitude</th>
-            <th>Longitude</th>
-            <th>Street</th>
-            <th>Postalcode</th>
-            <th>Price</th>
-            <th>description</th>
-
-        </tr>
-    </thead>
     <tbody>
         @foreach (var standorte in Model.LocationsBerlin)
         {
@@ -38,16 +32,6 @@
         }
     </tbody>
 </table>
-@*@{
-    List<decimal> latitudeList = new List<decimal>();
-    List<decimal> longititudeList = new List<decimal>();
-    @foreach (var standorte in Model.LocationsBerlin)
-    {
-        latitudeList.Add(standorte.Latitude);
-        longititudeList.Add(standorte.Longitude);
-    }
-}*@
-
 
 <link rel="stylesheet"
       href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
@@ -56,11 +40,3 @@
 <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
         integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
         crossorigin=""></script>
-<style>
-
-</style>
-<script type="text/javascript">
-
- 
-    
-</script>

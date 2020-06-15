@@ -5,3 +5,40 @@
 }
 
 
+<h1>Berlin</h1>
+
+
+<div class="button-container">
+    <a asp-page="./Map/Berlin" class="btn-lg btn-dark active">All</a>
+    <a asp-page="./Map/FreeToilets" class="btn-lg btn-dark">costless Toilets</a>
+    <a asp-page="./Map/WithChangingTable" class="btn-lg btn-dark">Toilets with Changing Table</a>
+    <a asp-page="./Map/WithHandicappedAccessible" class="btn-lg btn-dark">Toilets with Handicapped Access</a>
+</div>
+
+<div id="myMap"></div>
+<table id="table" class="table table-striped">
+    <tbody>
+        @foreach (var standorte in Model.LocationsBerlin)
+        {
+
+            <tr>
+                <td class="data-latitude">@standorte.Latitude</td>
+                <td class="data-longitude">@standorte.Longitude</td>
+                <td class="data-street">@standorte.Street</td>
+                <td class="data-postalCode">@standorte.PostalCode</td>
+                <td class="data-price">@standorte.Price</td>
+                <td class="data-label">@standorte.LabelId</td>
+                <td class="data-handycappedAccessible">@standorte.IsHandycappedAccessible</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<link rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+      integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+      crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+        integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+        crossorigin=""></script>

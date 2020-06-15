@@ -7,9 +7,12 @@ const priceArray = [];
 const labelArray = [];
 const handycappedAccessibleArray = [];
 
+var table = document.getElementById("table");
+var tableRowCount = table.rows.length - 1;
+console.log(tableRowCount);
 
 function getInfo(domElement, array) {
-    for (let i = 0; i < 259; i++) {
+    for (let i = 0; i < tableRowCount; i++) {
         let info = document.getElementsByClassName(domElement).item(i);
         array.push(info.innerHTML)
     }
@@ -21,12 +24,12 @@ getInfo("data-label", labelArray)
 getInfo("data-handycappedAccessible", handycappedAccessibleArray)
 
 
-for (let i = 0; i < 259; i++) {
+for (let i = 0; i < tableRowCount; i++) {
     let latitudes = document.getElementsByClassName("data-latitude").item(i);
     let fixlatitude = parseFloat(latitudes.innerHTML)
     latitudeArray.push(fixlatitude)
 }
-for (let i = 0; i < 259; i++) {
+for (let i = 0; i < tableRowCount; i++) {
     let longitude = document.getElementsByClassName("data-longitude").item(i);
     let fixlongitude = parseFloat(longitude.innerHTML)
     longitudeArray.push(fixlongitude)
@@ -70,29 +73,22 @@ if ('geolocation' in navigator) {
 
 
 
-function addMarker(latitudes, longitudes, street, postalcode, price, label, handycappedAccessible) {
-    for (let i = 0; i < 259; i++) {
+function addMarker(latitudes, longitudes, street, postalcode, price, label) {
+    for (let i = 0; i < tableRowCount; i++) {
         let marker = L.marker([latitudes[i], longitudes[i]]).addTo(mymap);
-        if (handycappedAccessible[i] === "1") {
-            var hasHandycappedAccessible = "street-view-solid.PNG"
-        };
         const description = `
                                 <div class="info-popup">
                                     <p class="street">${street[i]}</p>
                                     <p class="postalcode">${postalcode[i]}</p>
                                     <p class="label">${label[i]}</p>
                                     <p>Price: ${price[i]}</p>
-                                    <img src=${hasHandycappedAccessible} alt='maptime logo gif' width='350px' />
                                 </div>
                                 `;
         marker.bindPopup(description);
     }
 }
-addMarker(latitudeArray, longitudeArray, streetArray, postalCodeArray, priceArray, labelArray, handycappedAccessibleArray);
+addMarker(latitudeArray, longitudeArray, streetArray, postalCodeArray, priceArray, labelArray);
 
-function refresh() {
-    location.reload()
-}
 
 //function addFreeToilets(latitudes, longitudes, street, postalcode, price, label, freeToilets) {
 //    //refresh()
