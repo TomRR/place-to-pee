@@ -55,7 +55,7 @@ if ('geolocation' in navigator) {
         const usersLongitude = position.coords.longitude;
 
         const issIcon = L.icon({
-            iconUrl: 'street-view-solid.PNG',
+            iconUrl: 'https://cdn1.iconfinder.com/data/icons/maps-locations-6/24/map_location_user_location-512.png',
             iconSize: [50, 50],
             iconAnchor: [25, 16]
         });
@@ -89,10 +89,7 @@ function addMarker(latitudes, longitudes, street, postalcode, price, label) {
 }
 addMarker(latitudeArray, longitudeArray, streetArray, postalCodeArray, priceArray, labelArray);
 
-const hyperlinkButton = document.querySelectorAll(".btn-lg");
-if (hyperlinkButton.classList.contains("active")) {
-    hyperlinkButton.Enabled = false;
-}
+
 
 //function addFreeToilets(latitudes, longitudes, street, postalcode, price, label, freeToilets) {
 //    //refresh()

@@ -1,0 +1,44 @@
+﻿@page
+@model PlaceToPeeRazorPage.Pages.Info.DataTableModel
+@{
+    ViewData["Title"] = "DataTable";
+}
+
+<h1>Data Table</h1>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Street</th>
+            <th>Postalcode</th>
+            <th>Label</th>
+            <th>Price</th>
+            <th>Handicapped Accessible</th>
+            <th>can be payed with coints</th>
+            <th>can be payed with App</th>
+            <th>can be payed with NFC</th>
+            <th>has changing Table</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var standorte in Model.LocationsBerlin)
+        {
+
+        <tr>
+            <td>@standorte.Street</td>
+            <td>@standorte.PostalCode</td>
+            <td>@standorte.LabelId</td>
+            <td>@standorte.Price</td>
+            <td>@standorte.IsHandycappedAccessible</td>
+            <td>@standorte.CanBePayedWithCoins</td>
+            <td>@standorte.CanBePayedWthApp</td>
+            <td>@standorte.CanBePayedWithNFC</td>
+            <td>@standorte.HasChangingTable</td>
+            <td>@standorte.Latitude</td>
+            <td>@standorte.Longitude</td>
+        </tr>
+        }
+    </tbody>
+</table>
