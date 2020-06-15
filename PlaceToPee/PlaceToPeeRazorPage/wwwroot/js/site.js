@@ -7,6 +7,7 @@ const priceArray = [];
 const labelArray = [];
 const handycappedAccessibleArray = [];
 
+
 function getInfo(domElement, array) {
     for (let i = 0; i < 259; i++) {
         let info = document.getElementsByClassName(domElement).item(i);
@@ -19,10 +20,6 @@ getInfo("data-price", priceArray)
 getInfo("data-label", labelArray)
 getInfo("data-handycappedAccessible", handycappedAccessibleArray)
 
-const freeToiletsArray = priceArray.map(item => {
-    return item === "Kostenlos";
-});
-console.log(freeToiletsArray)
 
 for (let i = 0; i < 259; i++) {
     let latitudes = document.getElementsByClassName("data-latitude").item(i);

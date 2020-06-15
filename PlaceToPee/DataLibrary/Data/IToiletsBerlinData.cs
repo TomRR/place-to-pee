@@ -7,5 +7,8 @@ namespace DataLibrary.Data
     public interface IToiletsBerlinData
     {
         Task<List<ToiletsBerlinModel>> GetAllToiletsBerlin();
+
+        Task<List<ToiletsBerlinModel>> GetFreeToilets();
+        Task<int> DeleteToilet(int toiletId);
     }
 }
